@@ -9,4 +9,4 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
 });
 
-app.listen(process.env.PORT || 5600, () => console.log('Server runnint in port 5600...'));
+app.listen(process.env.PORT || 5600, () => console.log('Server running in port 5600...'));

@@ -1,5 +1,5 @@
 const navigateTo = url => {
-    history.pushState(null, null, url);
+    history.pushState(null, url, url);
     router();
 }
 
@@ -18,7 +18,7 @@ const router = async () => {
         }
     });
 
-    let match = potentialMatches.find(potentialMatche => potentialMatche.isMatch);
+    const match = potentialMatches.find(potentialMatche => potentialMatche.isMatch);
 
     if (!match) { // Go to default page or error page.
         match = {
