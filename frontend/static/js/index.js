@@ -32,7 +32,6 @@ const router = async () => {
 document.addEventListener('DOMContentLoaded', () =>{
     document.body.addEventListener('click', e => {
         if (e.target.matches('[data-link]')) {
-            console.log(e.target.href);
             e.preventDefault();
             navigateTo(e.target.href);
         }
