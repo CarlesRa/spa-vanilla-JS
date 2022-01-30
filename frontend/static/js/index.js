@@ -1,13 +1,16 @@
+import Dashboard from "./views/Dashboard.js";
+import Posts from "./views/Posts.js";
+
 const navigateTo = url => {
-    history.pushState(null, url, url);
+    history.pushState(null, null, url);
     router();
 }
 
 const router = async () => {
     const routes = [
-        { path: '/', vivew: () => console.log('Viewing Dashboard') },
-        { path: '/posts', vivew: () => console.log('Viewing Posts') },
-        { path: '/settings', vivew: () => console.log('Viewing Settings') },
+        { path: '/', view: Dashboard },
+        { path: '/posts', view: Posts },
+        { path: '/settings', view: () => console.log('Viewing Settings') },
     ];
 
     // Test each route for potential match
@@ -20,18 +23,22 @@ const router = async () => {
 
     const match = potentialMatches.find(potentialMatche => potentialMatche.isMatch);
 
-    if (!match) { // Go to default page or error page.
+    if (!match) { // Go to default page
         match = {
             route: routes[0],
             isMatch: true
         };
     }
-    console.log(match.route.vivew());
+    
+    const view = new match.route.view();
+    document.querySelector('#app').innerHTML = await view.getHtml();
 };
+
+window.addEventListener('popstate', router)
 
 document.addEventListener('DOMContentLoaded', () =>{
     document.body.addEventListener('click', e => {
-        if (e.target.matches('[data-link]')) {
+        if (e.target.matches('[gy-route]')) {
             e.preventDefault();
             navigateTo(e.target.href);
         }
